@@ -1,0 +1,87 @@
+{
+  "defaults": {
+    "period": "last-month",
+    "format": "pretty"
+  },
+  "repositories": [
+    {
+      "name": "react",
+      "path": "/Users/developer/code/react",
+      "active": true
+    },
+    {
+      "name": "redux",
+      "path": "/Users/developer/code/redux",
+      "active": true
+    },
+    {
+      "name": "mui",
+      "path": "/Users/developer/code/mui",
+      "active": true
+    },
+    {
+      "name": "stealthburner",
+      "path": "/Users/developer/code/stealthburner",
+      "active": true
+    },
+    {
+      "name": "typescript",
+      "path": "/Users/developer/code/typescript",
+      "active": true
+    },
+    {
+      "name": "node",
+      "path": "/Users/developer/code/node",
+      "active": true
+    },
+    {
+      "name": "express",
+      "path": "/Users/developer/code/express",
+      "active": true
+    },
+    {
+      "name": "webpack",
+      "path": "/Users/developer/code/webpack",
+      "active": true
+    },
+    {
+      "name": "legacy-project",
+      "path": "/Users/developer/code/legacy-project",
+      "active": false
+    }
+  ],
+  "userMappings": [
+    {
+      "primaryName": "Jane Smith",
+      "alternateIdentities": [
+        "jane.smith"
+      ]
+    },
+    {
+      "primaryName": "John Doe",
+      "alternateIdentities": [
+        "John D."
+      ]
+    },
+    {
+      "primaryName": "Alex Johnson",
+      "alternateIdentities": []
+    },
+    {
+      "primaryName": "Sam Wilson",
+      "alternateIdentities": []
+    },
+    {
+      "primaryName": "Taylor Zhang",
+      "alternateIdentities": [
+        "t.zhang"
+      ]
+    }
+  ],
+  "excludePatterns": [
+    "node_modules/**",
+    "dist/**",
+    "build/**",
+    "**/*.lock"
+  ]
+}

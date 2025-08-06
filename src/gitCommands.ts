@@ -5,7 +5,7 @@ import type IUserStats from "./types/IUserStats";
 /**
  * Execute a git command in the specified repository
  */
-function executeGitCommand(repoPath: string, command: string): string {
+export function executeGitCommand(repoPath: string, command: string): string {
     try {
         const result: string = execSync(command, { cwd: repoPath, encoding: "utf-8", shell: "/bin/zsh",
             stdio: ['inherit', 'pipe', 'inherit'] });
@@ -134,7 +134,7 @@ async function getRepoStats(
     try {
         executeGitCommand(repoPath, 'git rev-parse --is-inside-work-tree');
     } catch (error) {
-        throw new Error(`Not a valid git repository: ${repoPath}`);
+        throw new Error(`Not a valid git repository: ${repoPath}. ${error instanceof Error ? error.message : String(error)}`);
     }
 
     // Get all contributors in the specified date range

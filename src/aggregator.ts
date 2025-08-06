@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import getRepoStats from "./gitCommands";
+import getRepoStats, { executeGitCommand } from "./gitCommands";
 import type IAggregatedStats from "./types/IAggregatedStats";
 import type IExecutionContext from "./types/IExecutionContext";
 import type IUserStats from "./types/IUserStats";
@@ -27,6 +27,8 @@ async function aggregateStats(context: IExecutionContext): Promise<IUserStats[]>
     for (const repo of config.repositories.filter(r => r.active)) {
         try {
             console.log(chalk.yellow(`Processing repository: ${repo.name}`));
+
+            executeGitCommand(repo.path, "git stash && git checkout main && git pull");
 
             // Get stats for this repository
             const repoStats = await getRepoStats(repo.path, dateRange, config.excludePatterns);

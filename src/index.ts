@@ -112,7 +112,7 @@ function calculateDateRange(period: TimePeriod, since?: string, until?: string):
 /**
  * Main application entry point
  */
-async function main() {
+async function main(): Promise<void> {
     const options = parseCommandLineArgs();
 
     if (options.help) {

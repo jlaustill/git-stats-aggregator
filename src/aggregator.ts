@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import getRepoStats, { executeGitCommand } from "./gitCommands";
+import getRepoStats, { assertSafeRef, git } from "./gitCommands";
 import type IAggregatedStats from "./types/IAggregatedStats";
 import type IExecutionContext from "./types/IExecutionContext";
 import type IUserStats from "./types/IUserStats";
@@ -26,12 +26,16 @@ async function aggregateStats(context: IExecutionContext): Promise<IUserStats[]>
     // Process each active repository
     for (const repo of config.repositories.filter(r => r.active)) {
         try {
-            console.log(chalk.yellow(`Processing repository: ${repo.name}`));
+            console.log(chalk.yellow(`Processing repository: ${repo.name} (${repo.branch ?? "main"})`));
 
-            executeGitCommand(repo.path, "git stash && git checkout main && git pull");
+            const branch = assertSafeRef(repo.branch ?? "main");
+            git(repo.path, ["stash"]);
+            git(repo.path, ["checkout", branch]);
+            git(repo.path, ["pull"]);
 
-            // Get stats for this repository
-            const repoStats = await getRepoStats(repo.path, dateRange, config.excludePatterns);
+            // Get stats for this repository, measured on that branch explicitly —
+            // so a failed checkout cannot silently report another branch's history.
+            const repoStats = await getRepoStats(repo.path, dateRange, config.excludePatterns, branch);
 
             // Aggregate stats by normalized user name
             for (const userStat of repoStats) {
